@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>For Kashmala ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+html, body {
+ html, body {
+  margin:0;
+  padding:0;
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;   /* allow vertical scroll */
+  overflow-y:auto;
+  font-family:'Poppins', sans-serif;
+  background: radial-gradient(circle at bottom, #1a0033 0%, #000000 80%);
+  color:white;
+
+  /* Make everything unselectable */
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+}
+
+/* Canvases */
+#starfieldCanvas, #sparkleCanvas, #trailCanvas{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0;
+}
+
+/* Full-screen heart container */
+#heartScreen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+}
+
+/* Instruction */
+.instruction{
+  margin-bottom: 20px;
+  font-size:24px;
+  text-align:center;
+  opacity:0.85;
+  z-index:10;
+}
+
+/* Heart */
+.heart-container{
+  width:200px; height:200px;
+  cursor:pointer; display:flex; justify-content:center; align-items:center;
+  user-select:none; position: relative;
+}
+.heart{
+  position:absolute; width:120px; height:120px;
+  background:#ff2e73; transform:rotate(-45deg);
+  box-shadow:0 0 40px rgba(255,0,100,0.6);
+}
+.heart:before, .heart:after{
+  content:""; position:absolute; width:120px; height:120px;
+  background:#ff2e73; border-radius:50%;
+}
+.heart:before{ top:-60px; left:0; }
+.heart:after{ left:60px; top:0; }
+.fill{
+  position:absolute; width:100%; height:100%;
+  background: radial-gradient(circle, #ff99dd 0%, #ff2e73 100%);
+  opacity:0; border-radius:20px; filter:blur(40px);
+  pointer-events:none; transition: opacity 0.2s;
+}
+
+/* I LOVE YOU container */
+#loveContainer {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+#loveMessage {
+  font-family:'Great Vibes', cursive;
+  font-size: 80px;
+  color: #ff66b3;
+  background: linear-gradient(45deg, #ff66b3, #ff3385);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px #ff99dd, 0 0 80px #ff66b3;
+  animation: softPulse 4s ease-in-out infinite;
+  text-align: center;
+}
+
+/* Romantic Message Card */
+#messagePage{
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background: radial-gradient(circle at center, #33001a 0%, #1a0011 80%);
+  display:flex; justify-content:center; align-items:center;
+  opacity:0; pointer-events:none; transition: opacity 1.5s ease;
+  z-index:16;
+}
+.card{
+  background: rgba(255,192,203,0.2); /* soft pinkish transparent */
+  backdrop-filter: blur(20px);
+  padding:50px 40px;
+  border-radius:30px;
+  max-width:650px;
+  box-shadow:0 25px 60px rgba(255,182,193,0.25);
+  text-align:center;
+  transform: translateY(20px);
+  opacity:0;
+  transition: transform 1s ease, opacity 1s ease;
+}
+.card.show{
+  transform: translateY(0px);
+  opacity:1;
+}
+.card h1{
+  font-family:'Great Vibes', cursive; font-size:50px; color:#ffe6f0; margin-bottom:20px;
+  text-shadow:0 0 20px #fff, 0 0 50px #ff99dd;
+  animation: softPulse 4s ease-in-out infinite;
+}
+.card p{ font-size:22px; line-height:1.5; color:#fff0f5; }
+
+/* Memories Section */
+#memoriesPage{
+  position: relative;   /* 🔥 changed from absolute */
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+  padding: 80px 20px;
+}
+.scrapbook{
+  position:relative;
+  width:100%;
+  height:400px;
+  margin-top:20px;
+}
+.scrapbook img{
+  position:absolute;
+  width:140px; height:140px;
+  object-fit:cover;
+  border-radius:20px;
+  box-shadow:0 8px 25px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor:pointer;
+}
+.scrapbook img:hover{
+  transform: scale(1.1) rotate(0deg);
+  box-shadow:0 15px 40px rgba(0,0,0,0.3);
+}
+
+/* Floating hearts */
+.floating-heart{ position:absolute; color:#ff99dd; font-size:20px; animation: floatUp 6s linear forwards; }
+@keyframes floatUp{ 0%{ transform:translateY(0); opacity:1; } 100%{ transform:translateY(-200px); opacity:0; } }
+
+/* Soft pulse for I Love You text */
+@keyframes softPulse{
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+#memoriesBtn{
+  margin-top: 40px;
+  padding: 12px 30px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 30px;
+  background: #ff4d88;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 9999;
+}
+
+#memoriesBtn:hover{
+  background: #ff1a66;
+  transform: scale(1.05);
+}
+</style>
+</head>
+<body>
+
+<canvas id="starfieldCanvas"></canvas>
+<canvas id="sparkleCanvas"></canvas>
+<canvas id="trailCanvas"></canvas>
+
+<!-- Heart Screen -->
+<div id="heartScreen">
+  <div class="instruction">Press and hold my heart… ❤️</div>
+  <div class="heart-container" id="heartContainer">
+    <div class="heart"></div>
+    <div class="fill" id="fill"></div>
+  </div>
+</div>
+
+<!-- I Love You Message -->
+<div id="loveContainer">
+  <div id="loveMessage">I Love You Kashmala ❤️</div>
+</div>
+
+<!-- Romantic Message Card -->
+<div id="messagePage">
+  <div class="card">
+    <h1>My Heartfelt Words</h1>
+    <p>
+      Hi jani, I just wanted to say that I loveee youuu sooo soo muchhh and I am very grateful to have you in my life. You are the best thing that ever happened to me and know that I will always be by your side and never ever break your trust. You are my whole world and I will do everything to make you mine ❤️. PS mein web development bhoola hua hun tou itni he website ban saki mere se. 
+    </p>
+    <button id="memoriesBtn" onclick="goToMemories()">
+  See Our Memories ✨
+</button>
+  </div>
+</div>
+
+<!-- Memories Section -->
+<div id="memoriesPage">
+  <div class="card" style="max-width:800px;">
+    <h1>Our Memories Together 💕</h1>
+    <div class="scrapbook">
+      <img src="photo1.jpeg" style="top:10px; left:20px; transform: rotate(-5deg);">
+      <img src="photo2.jpeg" style="top:50px; left:180px; transform: rotate(8deg);">
+      <img src="photo3.jpeg" style="top:130px; left:100px; transform: rotate(-10deg);">
+      <img src="photo4.jpeg" style="top:200px; left:220px; transform: rotate(4deg);">
+      <img src="photo5.jpeg" style="top:270px; left:60px; transform: rotate(-3deg);">
+    </div>
+  </div>
+</div>
+
+<audio id="heartbeat" src="https://assets.mixkit.co/sfx/preview/mixkit-heart-beat-493.mp3"></audio>
+<audio id="romanticMusic" src="https://assets.mixkit.co/music/preview/mixkit-romantic-guitar-718.mp3" preload="auto"></audio>
+
+<script>
+// ---------------- CANVAS ----------------
+const sparkleCanvas=document.getElementById("sparkleCanvas"), sparkleCtx=sparkleCanvas.getContext("2d");
+const starCanvas=document.getElementById("starfieldCanvas"), starCtx=starCanvas.getContext("2d");
+const trailCanvas=document.getElementById("trailCanvas"), trailCtx=trailCanvas.getContext("2d");
+let sparkles=[], stars=[], trails=[];
+function resizeCanvas(){
+  sparkleCanvas.width = starCanvas.width = trailCanvas.width = window.innerWidth;
+  sparkleCanvas.height = starCanvas.height = trailCanvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+// Stars
+function initStars(){ stars=[]; for(let i=0;i<150;i++){
+  stars.push({ x:Math.random()*window.innerWidth, y:Math.random()*window.innerHeight, r:Math.random()*1.5+0.5, alpha:Math.random()*0.8+0.2, speed:Math.random()*0.2+0.05 });
+}}
+function drawStars(){ starCtx.clearRect(0,0,starCanvas.width,starCanvas.height);
+stars.forEach(s=>{ starCtx.fillStyle=`rgba(255,255,255,${s.alpha})`; starCtx.beginPath(); starCtx.arc(s.x,s.y,s.r,0,Math.PI*2); starCtx.fill(); s.y+=s.speed; if(s.y>window.innerHeight)s.y=0; });
+requestAnimationFrame(drawStars);}
+initStars(); drawStars();
+
+// Sparkles
+function startSparkles(){ setInterval(()=>{
+  sparkles.push({ x: window.innerWidth/2 + (Math.random()-0.5)*400, y: window.innerHeight/2 + (Math.random()-0.5)*200, size: Math.random()*3, alpha:1 });
+},150); animateSparkles(); }
+function animateSparkles(){ sparkleCtx.clearRect(0,0,sparkleCanvas.width,sparkleCanvas.height);
+sparkles.forEach((s,i)=>{ sparkleCtx.fillStyle=`rgba(255,255,255,${s.alpha})`; sparkleCtx.beginPath(); sparkleCtx.arc(s.x,s.y,s.size,0,Math.PI*2); sparkleCtx.fill(); s.alpha-=0.01; if(s.alpha<=0) sparkles.splice(i,1); });
+requestAnimationFrame(animateSparkles);
+}
+
+// Trails
+function animateTrails(){ trailCtx.clearRect(0,0,trailCanvas.width,trailCanvas.height);
+trails.forEach((t,i)=>{ trailCtx.fillStyle=`rgba(255,50,150,${t.alpha})`; trailCtx.beginPath(); trailCtx.arc(t.x,t.y,t.size,0,Math.PI*2); trailCtx.fill(); t.alpha-=0.02; t.x+=t.vx; t.y+=t.vy; if(t.alpha<=0) trails.splice(i,1); });
+requestAnimationFrame(animateTrails);
+}
+
+// ---------------- HEART ----------------
+let holdTime=0, holding=false, revealed=false, musicStarted=false;
+const fill=document.getElementById("fill");
+const heartContainer=document.getElementById("heartContainer");
+const heart=document.querySelector(".heart");
+const loveContainer=document.getElementById("loveContainer");
+const messagePage=document.getElementById("messagePage");
+const memoriesPage=document.getElementById("memoriesPage");
+const heartbeat=document.getElementById("heartbeat");
+const romanticMusic=document.getElementById("romanticMusic");
+
+function startHold(e){
+  if(revealed) return;
+  holding=true;
+  heartbeat.loop=true;
+  heartbeat.play().catch(()=>{});
+  if(!musicStarted){
+    musicStarted=true;
+    romanticMusic.volume=0.6;
+    romanticMusic.loop=true;
+    romanticMusic.play().catch(()=>{});
+  }
+  const x = (e.touches ? e.touches[0].clientX : e.clientX);
+  const y = (e.touches ? e.touches[0].clientY : e.clientY);
+  for(let i=0;i<5;i++){
+    sparkles.push({x:x+(Math.random()-0.5)*50,y:y+(Math.random()-0.5)*50,size:Math.random()*4+2,alpha:1});
+    trails.push({x:x,y:y,vx:(Math.random()-0.5)*2,vy:(Math.random()-0.5)*2,size:Math.random()*5+2,alpha:1});
+  }
+}
+function endHold(){ holding=false; heartbeat.pause(); }
+
+function update(){
+  if(revealed) return;
+  let scale=1+holdTime*0.3+Math.sin(Date.now()/300)*0.03;
+  heart.style.transform=`rotate(-45deg) scale(${scale})`;
+  if(holding){ holdTime+=0.015; if(holdTime>1) holdTime=1; } 
+  else{ holdTime-=0.02; if(holdTime<0) holdTime=0; }
+  fill.style.opacity=holdTime;
+  if(holdTime>=1) revealLove();
+  animateTrails();
+  requestAnimationFrame(update);
+}
+
+function revealLove(){
+  revealed = true;
+  heartbeat.pause();
+  
+  document.querySelector(".instruction").style.display = "none";
+  heartContainer.style.display = "none";
+
+  // **Disable pointer-events on the overlay so button is clickable**
+  const heartScreen = document.getElementById("heartScreen");
+  heartScreen.style.pointerEvents = "none";
+
+  // Show "I Love You Kashmala" first
+  loveContainer.style.opacity = 1;
+
+  // After 2.5s fade in the romantic message card elegantly
+  setTimeout(() => {
+    messagePage.style.opacity = 1;
+    messagePage.style.pointerEvents = "auto";
+    const card = document.querySelector("#messagePage .card");
+    setTimeout(() => card.classList.add("show"), 500); // small extra delay for smooth float
+  }, 2500);
+
+  startSparkles();
+  launchHearts();
+}
+
+  // After 5s, fade in memories page
+ // After 5 seconds, fade in memories section and scroll to it
+setTimeout(()=>{
+  memoriesPage.style.opacity = 1;
+  memoriesPage.style.pointerEvents = "auto";
+
+  memoriesPage.scrollIntoView({
+    behavior: "smooth"
+  });
+
+}, 5500);
+
+  startSparkles();
+  launchHearts();
+
+function launchHearts(){ for(let i=0;i<25;i++){
+  const h=document.createElement("div"); h.className="floating-heart"; h.innerText="❤️";
+  h.style.left=Math.random()*100+"vw"; h.style.bottom="0px"; h.style.fontSize=(15+Math.random()*25)+"px";
+  document.body.appendChild(h); setTimeout(()=>h.remove(),6000);
+}
+}
+// Heart events
+heartContainer.addEventListener("pointerdown", startHold);
+heartContainer.addEventListener("pointerup", endHold);
+heartContainer.addEventListener("pointercancel", endHold);
+heartContainer.addEventListener("pointerleave", endHold);
+heartContainer.addEventListener("mousedown", startHold);
+heartContainer.addEventListener("mouseup", endHold);
+heartContainer.addEventListener("mouseleave", endHold);
+heartContainer.addEventListener("touchstart", startHold);
+heartContainer.addEventListener("touchend", endHold);
+
+update();
+function goToMemories(){
+  window.location.href = "memories.html";
+  }
+
+</script>
+</body>
+</html>
