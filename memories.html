@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Our Memories Scrapbook ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+<style>
+body, html {
+  margin:0; padding:0; width:100%; height:100%;
+  font-family:'Poppins', sans-serif;
+  background: #fdf3e7 url('https://www.transparenttextures.com/patterns/paper-fibers.png') repeat;
+  overflow-y: auto;
+}
+
+
+/* Scrapbook Header */
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 60px;
+  text-align: center;
+  margin-top: 20px;
+  color: #ff4d88;
+  text-shadow: 0 0 20px #ff99dd;
+}
+
+/* Scrapbook Container */
+#scrapbookContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 40px;
+  gap: 30px;
+  position: relative;
+}
+
+/* Scrap photos */
+.scrap-photo {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  border: 3px solid #fff0f5;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect for photos */
+.scrap-photo:hover {
+  transform: scale(1.05) rotate(0deg);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  z-index: 10;
+}
+
+/* Decorative Washi Tapes */
+.washi {
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  background: repeating-linear-gradient(45deg, #ff99dd, #ff99dd 5px, #ff4d88 5px, #ff4d88 10px);
+  transform: rotate(-10deg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* Stickers & Doodles */
+.sticker {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  pointer-events: none;
+}
+/* Fade-in pop animation for scrapbook items */
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) rotate(-5deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+.scrapbook img, .sticker {
+  opacity: 0;
+  transform: scale(0.8);
+  animation: popIn 0.8s ease forwards;
+}
+
+/* Staggered animation using delays */
+.scrapbook img:nth-child(1) { animation-delay: 0.2s; }
+.scrapbook img:nth-child(2) { animation-delay: 0.4s; }
+.scrapbook img:nth-child(3) { animation-delay: 0.6s; }
+.scrapbook img:nth-child(4) { animation-delay: 0.8s; }
+.scrapbook img:nth-child(5) { animation-delay: 1s; }
+.scrapbook img:nth-child(6) { animation-delay: 1.2s; }
+.scrapbook img:nth-child(7) { animation-delay: 1.4s; }
+.scrapbook img:nth-child(8) { animation-delay: 1.6s; }
+.scrapbook img:nth-child(9) { animation-delay: 1.8s; }
+/* Floating hearts */
+.floating-heart{
+  position:absolute; color:#ff99dd; font-size:20px; animation: floatUp 6s linear forwards;
+}
+@keyframes floatUp{ 0%{ transform:translateY(0); opacity:1; } 100%{ transform:translateY(-300px); opacity:0; } }
+
+#voiceBtn{
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 30px;
+  background: #ff99dd;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(255,153,221,0.4);
+  animation: bounceIn 1s ease;
+}
+
+#voiceBtn:hover{
+  background: #ff66b3;
+  transform: scale(1.05);
+}
+
+/* Simple bounce animation */
+@keyframes bounceIn {
+  0% { transform: scale(0.5); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  80% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+</style>
+</head>
+<body>
+
+<h1>Our Memories Scrapbook 💕</h1>
+
+<div id="scrapbookContainer">
+  <!-- Photo 1 -->
+  <img src="photo1.jpeg" class="scrap-photo">
+  <!-- Photo 2 -->
+  <img src="photo2.jpeg" class="scrap-photo">
+  <!-- Photo 3 -->
+  <img src="photo3.jpeg" class="scrap-photo">
+  <!-- Photo 4 -->
+  <img src="photo4.jpeg" class="scrap-photo">
+  <!-- Photo 5 -->
+  <img src="photo5.jpeg" class="scrap-photo">
+  <!-- Photo 6 -->
+  <img src="photo6.jpeg" class="scrap-photo">
+  <!-- Photo 7 -->
+  <img src="photo7.jpeg" class="scrap-photo">
+  <!-- Photo 8 -->
+  <img src="photo8.jpeg" class="scrap-photo">
+
+  <!-- Decorative Washi Tapes -->
+  <div class="washi" style="top:20px; left:200px; transform: rotate(-15deg);"></div>
+  <div class="washi" style="top:500px; left:600px; transform: rotate(20deg);"></div>
+  <div class="washi" style="top:350px; left:50px; transform: rotate(-25deg);"></div>
+
+  <!-- Stickers & Doodles -->
+  <img src="heart.png" class="sticker" style="top:20px; left:30px;">
+  <img src="kiss.png" class="sticker" style="top:500px; left:200px;">
+  <img src="heart2.png" class="sticker" style="top:250px; left:500px;">
+  <img src="flower.png" class="sticker" style="top:150px; left:350px;">
+</div>
+<div style="width:100%; display:flex; justify-content:center; margin-top:40px;">
+  <button id="voiceBtn" onclick="window.location.href='voice.html'">
+    A Message For You 🎤
+  </button>
+</div>
+<script>
+// Floating hearts
+function launchHearts(){ 
+  for(let i=0;i<25;i++){
+    const h=document.createElement("div"); 
+    h.className="floating-heart"; 
+    h.innerText="❤️";
+    h.style.left=Math.random()*100+"vw"; 
+    h.style.bottom="0px"; 
+    h.style.fontSize=(15+Math.random()*25)+"px";
+    document.body.appendChild(h); 
+    setTimeout(()=>h.remove(),6000);
+  }
+}
+setInterval(launchHearts, 3000);
+
+window.addEventListener('load', () => {
+  const stickers = document.querySelectorAll('.sticker');
+  stickers.forEach((s, i) => {
+    setTimeout(() => {
+      s.style.transition = 'transform 0.3s ease';
+      s.style.transform += ' scale(1.1)';
+      setTimeout(() => s.style.transform = s.style.transform.replace(' scale(1.1)', ''), 300);
+    }, i * 300);
+  });
+});
+</script>
+</body>
+</html>
